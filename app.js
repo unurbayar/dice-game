@@ -15,13 +15,32 @@ var roundScore = 0;
 
 // <img src="dice-5.png" alt="Dice" class="dice"></img>
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
 
-//Програм эхлэхэд бэлтгий
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
+// Тоглоомыг эхлүүлнэ ээ.
+initGame();
+// Тоглоомыг шинээр эхлүүлэх функц
+function initGame() {
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+
+  document.querySelector(".player-0-panel").classList.add("active");
+
+  //Програм эхлэхэд бэлтгий
+  scores = [0, 0];
+  roundScore = 0;
+  activePlayer = 0;
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+  diceDom.style.display = "none";
+}
 
 //<button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
 // шоог шидэх эвент листенер
@@ -50,7 +69,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
   document.getElementById("score-" + activePlayer).textContent =
     scores[activePlayer];
   // Уг тоглогч хожсон эсэхийг шалгах. 100 аас их бол шалгана.
-  if (scores[activePlayer] >= 6) {
+  if (scores[activePlayer] >= 10) {
     // ялагчийг winner болгоно.
     document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
     document
@@ -86,3 +105,6 @@ function switchToNextPlayer() {
   // Шоог алга болгож өгнө.
   diceDom.style.display = "none";
 }
+
+// New game товчийг дарах юм бол шинээр тоглоомыг эхлүүлэх эвент листенер
+document.querySelector(".btn-new").addEventListener("click", initGame);
